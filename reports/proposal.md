@@ -8,7 +8,7 @@ For this project we will be creating an interactive, text-based game in the term
 We want to learn more about strings and how strings work in C. We want to learn about how we can manipulate strings and how pointers to strings and char arrays work. By making a terminal based game, we will also learn how to be more familiar with working with special characters.
 
 ## Resources
-We have found a tutorial online for NCURSES, which will help in formatting our game in the terminal: [NCURSES link] (https://invisible-island.net/ncurses/ncurses-intro.html).
+We have found a tutorial online for NCURSES, which will help in formatting our game in the terminal: [NCURSES link](https://invisible-island.net/ncurses/ncurses-intro.html).
 Another resource that we will reference is ELIZA, which is our inspiration for the game: [ELIZA](https://en.wikipedia.org/wiki/ELIZA).
 
 ## First Steps
