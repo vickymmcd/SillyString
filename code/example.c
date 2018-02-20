@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <curses.h>
 #include <signal.h>
+#include <menu.h>
 
 static void finish(int sig);
 
@@ -37,14 +38,31 @@ int main(int argc, char *argv[])
         init_pair(7, COLOR_WHITE,   COLOR_BLACK);
     }
 
-    for (;;)
-    {
-        int c = getch();     /* refresh, accept single keystroke of input */
-        attrset(COLOR_PAIR(num % 8));
-        num++;
+    ITEM **my_item;
+    int n_choices = 3;
+    int c;
+    my_item = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
+    my_item[0] = new_item("hello", "hiya");
+    my_item[1] = new_item("goodbye", "byea");
+    MENU *my_menu = new_menu(my_item);
+    mvprintw(LINES - 2, 0, "F6 to Exit");
+    post_menu(my_menu);
+    refresh();
 
-        /* process the command keystroke */
-    }
+    while((c = getch()) != KEY_F(6))
+    {   switch(c)
+        { case KEY_DOWN:
+          menu_driver(my_menu, REQ_DOWN_ITEM);
+          break;
+          case KEY_UP:
+          menu_driver(my_menu, REQ_UP_ITEM);
+          break;
+        }
+      }
+
+    free_item(my_item[0]);
+    free_item(my_item[1]);
+    free_menu(my_menu);
 
     finish(0);               /* we're done */
 }
