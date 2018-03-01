@@ -1,0 +1,5 @@
+To run the example menu code:
+
+gcc example_menu.c -o example_menu -lmenu -lncurses
+
+./example_menu
