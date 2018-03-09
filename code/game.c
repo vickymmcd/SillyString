@@ -10,7 +10,7 @@ void mc_question(char *question, int n_choices, char *options[], int correct){
     exit(0);
   }
 
-  char *Letters = "ABCDEFGH";
+  char letter[n_choices][1];
 
   printw(question);
   ITEM **my_items;
@@ -19,7 +19,9 @@ void mc_question(char *question, int n_choices, char *options[], int correct){
   int c;
   my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
   for(i=0; i<n_choices; i++){
-    my_items[i] = new_item(&Letters[i], options[i]);
+    letter[i][0] = (char)i+65;
+    letter[i][1] = '\0';
+    my_items[i] = new_item(letter[i], options[i]);
   }
   MENU *my_menu = new_menu(my_items);
 
@@ -56,7 +58,7 @@ void mc_question(char *question, int n_choices, char *options[], int correct){
   printw("You chose choice: %s\n", item_name(current_item(my_menu)));
   printw("Which is: %s\n", item_description(current_item(my_menu)));
 
-  if(strcmp(item_name(current_item(my_menu)), &Letters[correct])==0){
+  if(strcmp(item_name(current_item(my_menu)), letter[correct])==0){
     printw("Congratulations! You escaped!");
   }
   else{
