@@ -55,14 +55,14 @@ void mc_question(char *question, int n_choices, char *options[], int correct){
   }
 
   clear();
-  printw("You chose choice: %s\n", item_name(current_item(my_menu)));
+  printw("You chose choice: %.1s\n", item_name(current_item(my_menu)));
   printw("Which is: %s\n", item_description(current_item(my_menu)));
 
   if(strcmp(item_name(current_item(my_menu)), letter[correct])==0){
-    printw("Congratulations! You escaped!");
+    printw("Congratulations! You escaped!\n");
   }
   else{
-    printw("Sorry, that's not right. Lose 1 life.");
+    printw("Sorry, that's not right. Lose 1 life.\n");
   }
 
   free_item(my_items[0]);
