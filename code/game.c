@@ -22,6 +22,8 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
   int c;
   my_items = (ITEM **)calloc(n_choices + 1, sizeof(ITEM *));
 
+  clear();
+
   // only allow for 7 or fewer multiple choice options
   if(n_choices > 8){
     printw("Sorry, this only supports questions with 7 or fewer choices");
@@ -105,6 +107,37 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
 
 }
 
+/* Sets up an NCURSES free response question
+ *
+ * question: text of the question as a string
+ * answer: string that represents correct input
+ */
+int fr_question(char *question, char *answer){
+  char escape[] = "Congrats! You escaped!";
+  char no_escape[] = "Sorry, you did not escape.";
+  char resp[5];
+  int row, col;
+
+  // get the dimensions of the screen
+  getmaxyx(stdscr, row, col);
+
+  // print the question in the center of the window
+  clear();
+  mvprintw(row/2, (col-strlen(question))/2, "%s", question);
+  mvprintw((row/2)+3, (col-strlen(question))/2, "");
+
+  // get the input response and determine if right (return 0) or wrong (return 1)
+  getnstr(resp, 4);
+  clear();
+  if(strcmp(resp, answer) == 0){
+    mvprintw(row/2, (col-strlen(escape))/2, "%s", escape);
+    return 0;
+  }
+  else{
+    mvprintw(row/2, (col-strlen(no_escape))/2, "%s", no_escape);
+    return 1;
+  }
+}
 
 /* Sets up gameplay for NCURSES escape the room game
  */
@@ -120,9 +153,9 @@ int main(int argc, char *argv[])
 
     // set up variables for question 1
     int num = 0;
-    char *question1 = "You find yourself locked out of the room. You need to acquire a key, \
-    but where should you look? The forgetful librarians always leave hints for themselves \
-    in case they ever lock themselves out. In this case, the hint is: ELBAT EHT REDNU\n";
+    char *question1 = "You find yourself locked out of the room. You need to acquire a key, "
+    "but where should you look? The forgetful librarians always leave hints for themselves "
+    "in case they ever lock themselves out. In this case, the hint is: ELBAT EHT REDNU\n";
 
     int num_choices = 4;
     char *options1[num_choices];
@@ -131,7 +164,10 @@ int main(int argc, char *argv[])
     options1[2] = "Under the door mat";
     options1[3] = "On top of the shelf";
 
+    char question2[] = "Would you like to escape? (yes or no) ";
+
     mc_question(question1, num_choices, options1, 1);
+    fr_question(question2, "yes");
 
     // wait for the user to press a key after the question
     getch();
