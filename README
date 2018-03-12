@@ -1,5 +1,5 @@
-To run the example menu code:
+To run the escape the room game code:
 
-gcc example_menu.c -o example_menu -lmenu -lncurses
+gcc game.c questions.c -o game -lmenu -lncurses
 
-./example_menu
+./game
