@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
 
     mc_question(question1, num_choices, options1, 1);
     fr_question(question2, "yes");
+    mouse_question();
 
     // wait for the user to press a key after the question
     getch();
