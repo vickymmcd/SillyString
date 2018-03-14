@@ -100,11 +100,11 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
   // determine if they were right or wrong return 0 for correct and 1 for incorrect
   if(strcmp(response, letter[correct])==0){
     printw("Congratulations! You escaped!\n");
-    return 1;
+    return 0;
   }
   else{
     printw("Sorry, that's not right. Lose 1 life.\n");
-    return 0;
+    return 1;
   }
 
 }
@@ -117,19 +117,19 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
 int fr_question(char *question, char *answer){
   char escape[] = "Congrats! You escaped!";
   char no_escape[] = "Sorry, you did not escape.";
-  char resp[5];
+  char resp[7];
   int row, col;
 
   // get the dimensions of the screen
   getmaxyx(stdscr, row, col);
 
-  // print the question in the center of the window
+  // print the question
   clear();
-  mvprintw(row/2, (col-strlen(question))/2, "%s", question);
-  mvprintw((row/2)+3, (col-strlen(question))/2, "");
+  mvprintw(0, 0, "%s", question);
+  mvprintw(6, 6, "");
 
   // get the input response and determine if right (return 0) or wrong (return 1)
-  getnstr(resp, 4);
+  getnstr(resp, 6);
   clear();
   if(strcmp(resp, answer) == 0){
     mvprintw(row/2, (col-strlen(escape))/2, "%s", escape);
@@ -141,7 +141,7 @@ int fr_question(char *question, char *answer){
   }
 }
 
-int mouse_question(){
+int mouse_question(char *question, int num_knocks){
   int ch, count=0;
   int row, col;
   MEVENT event;
@@ -154,36 +154,53 @@ int mouse_question(){
   clear();
   cbreak();
 
+  // set up NCURSES to get mouse events
   mousemask(ALL_MOUSE_EVENTS | REPORT_MOUSE_POSITION, NULL);
+
   // get the dimensions of the screen
   getmaxyx(stdscr, row, col);
   int xtolerance = 10;
   int ytolerance = 5;
 
-  while ((ch = getch()) != 'q')
+  // print the question
+  mvprintw(0, 0, question);
+  refresh();
+
+  while ((ch = getch()) != 'e')
   {
-    count++;
-    //mvprintw(1, 1, "Has mouse: %d", has_mouse());
-    //mvprintw(2, 1, "Key code: %x; mouse code:%x", ch, KEY_MOUSE);
+    // clear and print the question
+    clear();
+    mvprintw(0, 0, question);
+    mvprintw(7, 1, "You have knocked %d time(s)", count);
+
+    // check and see if a mouse event has happened
     if (ch == KEY_MOUSE)
     {
-      clear();
       assert(getmouse(&event) == OK);
-      mvprintw(3, 3, "Mouse Event: x=%d, y=%d z=%d",
-               event.x, event.y, event.z);
-      mvprintw(4, 3, "row: %d col: %d", row, col);
-      mvprintw(5, 3, "Mouse button mask: %x", event.bstate);
       if(event.bstate & BUTTON1_CLICKED){
+        // determine if the click was in the center of the screen
         if(event.y >= (row/2)-ytolerance && event.y <= (row/2)+ytolerance){
           if(event.x >= (col/2)-xtolerance && event.x <= (col/2)+xtolerance){
-            mvprintw(2, 1, "hit in center!");
+            count++;
+            mvprintw(7, 1, "You have knocked %d time(s)", count);
           }
         }
-        mvprintw(1, 1, "left button click");
       }
     }
-    mvprintw(6, 1, "Event number: %4d",count);
     refresh();
   }
-  return 0;
+
+  // return 0 for correct and 1 for incorrect
+  if(count==num_knocks){
+    clear();
+    printw("congrats!, good job");
+    refresh();
+    return 0;
+  }
+  else{
+    clear();
+    printw("sad bad");
+    refresh();
+    return 1;
+  }
 }
