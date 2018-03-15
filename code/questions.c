@@ -30,8 +30,6 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
   if(n_choices > 8){
     printw("Sorry, this only supports questions with 7 or fewer choices");
     return -1;
-    //endwin();
-    //exit(0);
   }
 
   printw(question);
@@ -82,11 +80,6 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
       }
       wrefresh(my_menu_win);
   }
-
-  // display the user's choice
-  clear();
-  printw("You chose choice: %.1s\n", item_name(current_item(my_menu)));
-  printw("Which is: %s\n", item_description(current_item(my_menu)));
 
   // get response then free items
   response = item_name(current_item(my_menu));

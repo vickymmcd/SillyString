@@ -40,3 +40,4 @@ Lastly, if the user makes it to the last question, they are told to "knock on th
 ![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/knock.jpg)
 
 ## Reflection
+I definitely feel that I learned a lot from doing this project. I am much more comfortable with strings in C now, and I feel much better about working with arrays of strings in C now that I have more experience with them. I also feel like learning about NCURSES was a really valuable experience as it is something I can use if I ever want to create terminal applications in the future. I like how it is fairly easy to work with and makes terminal interactions so much nicer. Being able to create scrollable menus or use mouse input are very valuable features to have for many different applications. I also had fun with this project and enjoyed coming up with the questions for the escape the room game.
