@@ -99,11 +99,9 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
 
   // determine if they were right or wrong return 0 for correct and 1 for incorrect
   if(strcmp(response, letter[correct])==0){
-    printw("Congratulations! You escaped!\n");
     return 0;
   }
   else{
-    printw("Sorry, that's not right. Lose 1 life.\n");
     return 1;
   }
 
@@ -115,13 +113,7 @@ int mc_question(char *question, int n_choices, char *options[], int correct){
  * answer: string that represents correct input
  */
 int fr_question(char *question, char *answer){
-  char escape[] = "Congrats! You escaped!";
-  char no_escape[] = "Sorry, you did not escape.";
   char resp[7];
-  int row, col;
-
-  // get the dimensions of the screen
-  getmaxyx(stdscr, row, col);
 
   // print the question
   clear();
@@ -132,15 +124,18 @@ int fr_question(char *question, char *answer){
   getnstr(resp, 6);
   clear();
   if(strcmp(resp, answer) == 0){
-    mvprintw(row/2, (col-strlen(escape))/2, "%s", escape);
     return 0;
   }
   else{
-    mvprintw(row/2, (col-strlen(no_escape))/2, "%s", no_escape);
     return 1;
   }
 }
 
+/* Sets up an NCURSES mouse question
+ *
+ * question: text of the question as a string
+ * num_knocks: number of times they should click the center of the screen
+ */
 int mouse_question(char *question, int num_knocks){
   int ch, count=0;
   int row, col;
@@ -192,15 +187,9 @@ int mouse_question(char *question, int num_knocks){
 
   // return 0 for correct and 1 for incorrect
   if(count==num_knocks){
-    clear();
-    printw("congrats!, good job");
-    refresh();
     return 0;
   }
   else{
-    clear();
-    printw("sad bad");
-    refresh();
     return 1;
   }
 }
