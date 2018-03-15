@@ -17,7 +17,7 @@ Another great resource that I used to learn more about NCURSES is this online tu
 ## Accomplishments
 In the end, I was able to create a basic escape the room game with 3 question types. One question type allows the user to choose an option from a multiple choice menu, one question type allows the user to type in an answer to a free response question, and the last question type asks the user to use the mouse to click on the center of the terminal a certain number of times. Because I wanted to learn more about strings for this project, I decided to split my code into functions representing each question type which can be found in 'questions.c'. This way, the question can be set from inside main and parameters for the question text and correct answer can be passed into the functions which control the question. Below for example is a picture of my code for setting up a free response question.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/fr_question.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/fr_question.jpg)
 
 As you can see, my function takes in pointers to strings representing the question and the correct answer. I print the question and get the response using "getnstr(resp, 6)". This function will only allow the user to type a max of 6 characters so that I do not write past the end of the resp array. I then return 0 if the user got the correct answer or 1 otherwise.
 
