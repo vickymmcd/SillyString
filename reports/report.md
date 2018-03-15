@@ -21,22 +21,22 @@ In the end, I was able to create a basic escape the room game with 3 question ty
 
 As you can see, my function takes in pointers to strings representing the question and the correct answer. I print the question and get the response using "getnstr(resp, 6)". This function will only allow the user to type a max of 6 characters so that I do not write past the end of the resp array. I then return 0 if the user got the correct answer or 1 otherwise.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/gamesetup.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/gamesetup.jpg)
 
 In the above main code from 'game.c', I setup the escape the room game. I call my multiple choice function, then my free response question, and finally, my mouse clicking question. After each question, I check to see whether there is a loss and if there is I run my losing function to end the game. If they get all the way to the end without losing, I run my win function which can be seen below.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/win.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/win.jpg)
 
 The first step in completing the escape the room game is to answer the multiple choice question which is displayed below. I made use of an NCURSES window to place on top of the main terminal window to display that menu.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/mc_question.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/mc_question.jpg)
 
 If the user answers the first question correctly, then they are directed to this second question which is a free response question. To answer this question, the user must type in their response and press enter.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/fr_ques_pic.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/fr_ques_pic.jpg)
 
 Lastly, if the user makes it to the last question, they are told to "knock on the door" and they need to figure out how many times to knock. They can knock by using their mouse to click on the center of the terminal window and enter that they are done by pressing the 'e' key.
 
-[](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/knock.jpg)
+![](https://raw.githubusercontent.com/vickymmcd/SillyString/master/images/knock.jpg)
 
 ## Reflection
